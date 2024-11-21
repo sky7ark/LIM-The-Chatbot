@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>My Website</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <style>
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+        color: #333;
+      }
+
+      header {
+        background: #007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      .hero {
+        background: url("https://via.placeholder.com/1920x600?text=Your+Insurance+Company")
+          no-repeat center center;
+        background-size: cover;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3em;
+        margin: 0;
+      }
+
+      .hero p {
+        font-size: 1.5em;
+      }
+
+      .container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .section {
+        margin-bottom: 30px;
+      }
+
+      .section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #007bff;
+      }
+
+      .cards {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        color: #007bff;
+      }
+
+      footer {
+        background: #007bff;
+        color: white;
+        text-align: center;
+        padding: 10px;
+      }
+      .chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .chatbot-header {
+        background: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chatbot-header .minimize-btn {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      .chatbot-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background: #f9f9f9;
+        display: flex;
+        flex-direction: column; /* Ensures messages are displayed in a vertical stack */
+        gap: 10px; /* Adds space between messages */
+      }
+
+      .chatbot-message {
+        display: inline-block; /* Dynamically adjusts size to text */
+        max-width: 70%; /* Prevents overly wide messages */
+        word-wrap: break-word; /* Wraps long text to the next line */
+        padding: 10px;
+        border-radius: 15px;
+        margin: 0; /* Removes default margins to avoid unnecessary spacing */
+      }
+
+      .chatbot-message.user {
+        background: #007bff;
+        color: white;
+        align-self: flex-end; /* Aligns user messages to the right */
+        text-align: left;
+        border-radius: 15px 15px 0 15px; /* Rounded corners */
+      }
+
+      .chatbot-message.bot {
+        background: #e9ecef;
+        color: black;
+        align-self: flex-start; /* Aligns bot messages to the left */
+        text-align: left;
+        border-radius: 15px 15px 15px 0; /* Rounded corners */
+      }
+
+      .chatbot-input-area {
+        padding: 10px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #ddd;
+      }
+
+      .chatbot-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        outline: none;
+      }
+
+      .chatbot-button {
+        margin-left: 10px;
+        padding: 10px 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .chatbot-button:hover {
+        background: #0056b3;
+      }
+
+      /* Hidden State */
+      .chatbot.hidden {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      /* Chatbot Toggle Icon */
+      .chatbot-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: #007bff;
+        color: white;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1.5em;
+        z-index: 1000;
+        display: none;
+      }
+
+      .chatbot-toggle.visible {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>Vehicle Insurance Company</div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <div>
+        <h1>Your Safety is Our Priority</h1>
+        <p>Comprehensive coverage at affordable rates.</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="section">
+        <h2>Our Services</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Get a Quote</h3>
+            <p>Get instant insurance quotes tailored to your needs.</p>
+          </div>
+          <div class="card">
+            <h3>Renew Policy</h3>
+            <p>Renew your existing insurance policy quickly and easily.</p>
+          </div>
+          <div class="card">
+            <h3>File a Claim</h3>
+            <p>Report and track your claims with our hassle-free process.</p>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Customer Testimonials</h2>
+        <div class="cards">
+          <div class="card">
+            <p>"Amazing service! The team made the process seamless."</p>
+            <strong>- John D.</strong>
+          </div>
+          <div class="card">
+            <p>"Affordable rates and excellent customer support."</p>
+            <strong>- Sarah W.</strong>
+          </div>
+          <div class="card">
+            <p>"Filing a claim was so easy. Highly recommend!"</p>
+            <strong>- Michael T.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>Contact Us: 1-800-INSURE | support@insurance.com</div>
+    </footer>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot" id="chatbot">
+      <div class="chatbot-header">
+        LIM: Vehicle Insurance Chatbot
+        <button class="minimize-btn" id="minimize-btn">−</button>
+      </div>
+      <div class="chatbot-messages">
+        <div class="chatbot-message bot">Hello! How can I help you?</div>
+      </div>
+      <div class="chatbot-input-area">
+        <input
+          type="text"
+          class="chatbot-input"
+          placeholder="Type your message..."
+        />
+        <button class="chatbot-button">Send</button>
+      </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <div class="chatbot-toggle" id="chatbot-toggle">💬</div>
+
+    <script>
+      const chatbot = document.getElementById("chatbot");
+      const minimizeBtn = document.getElementById("minimize-btn");
+      const chatbotToggle = document.getElementById("chatbot-toggle");
+
+      // Minimize Chatbot
+      minimizeBtn.addEventListener("click", () => {
+        chatbot.classList.add("hidden");
+        chatbotToggle.classList.add("visible");
+      });
+
+      // Show Chatbot
+      chatbotToggle.addEventListener("click", () => {
+        chatbot.classList.remove("hidden");
+        chatbotToggle.classList.remove("visible");
+      });
+
+      const inputField = document.querySelector(".chatbot-input");
+      const messageContainer = document.querySelector(".chatbot-messages");
+
+      // Function to send a message
+      function sendMessage() {
+        const userMessage = inputField.value.trim();
+
+        if (userMessage === "") return; // Ignore empty input
+
+        // Display user's message in the chat
+        const userMessageElement = document.createElement("div");
+        userMessageElement.className = "chatbot-message user";
+        userMessageElement.textContent = userMessage;
+        messageContainer.appendChild(userMessageElement);
+
+        inputField.value = ""; // Clear input field
+
+        // Send user input to the Flask API
+        fetch("/get-response", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: userMessage }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const botMessageElement = document.createElement("div");
+            botMessageElement.className = "chatbot-message bot";
+            botMessageElement.textContent =
+              data.response || "Sorry, something went wrong.";
+            messageContainer.appendChild(botMessageElement);
+
+            // Scroll to the bottom of the chat
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+          })
+          .catch((error) => {
+            console.error("Error fetching chatbot response:", error);
+          });
+      }
+
+      // Attach click event listener to the "Send" button
+      document
+        .querySelector(".chatbot-button")
+        .addEventListener("click", sendMessage);
+
+      // Listen for the "Enter" key in the input field
+      inputField.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          sendMessage(); // Call the sendMessage function
+          event.preventDefault(); // Prevent the default behavior of the "Enter" key
+        }
+      });
+    </script>
+  </body>
+</html>
