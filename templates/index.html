@@ -7,7 +7,6 @@
     <title>My Website</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <style>
-      /* Global Styles */
       body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -17,15 +16,17 @@
       }
 
       header {
-        background: #007bff;
+        background: #1e2761;
+        /* Semi-transparent background */
         color: white;
         padding: 20px;
         text-align: center;
         font-size: 1.5em;
+        caret-color: transparent;
       }
 
       .hero {
-        background: url("https://via.placeholder.com/1920x600?text=Your+Insurance+Company")
+        background: url("https://wallpapers.com/images/high/cool-mustang-5120-x-2880-xkeg6dzewdjdx9g1.webp")
           no-repeat center center;
         background-size: cover;
         height: 400px;
@@ -34,6 +35,7 @@
         align-items: center;
         color: white;
         text-align: center;
+        caret-color: transparent;
       }
 
       .hero h1 {
@@ -58,7 +60,7 @@
       .section h2 {
         text-align: center;
         margin-bottom: 20px;
-        color: #007bff;
+        color: #1e2761;
       }
 
       .cards {
@@ -79,14 +81,15 @@
 
       .card h3 {
         margin-top: 0;
-        color: #007bff;
+        color: #1e2761;
       }
 
       footer {
-        background: #007bff;
+        background: #1e2761;
         color: white;
         text-align: center;
         padding: 10px;
+        caret-color: transparent;
       }
       .chatbot {
         position: fixed;
@@ -104,7 +107,8 @@
       }
 
       .chatbot-header {
-        background: #007bff;
+        background: #1e2761;
+        opacity: 85%;
         color: white;
         padding: 15px;
         text-align: center;
@@ -143,7 +147,7 @@
       }
 
       .chatbot-message.user {
-        background: #007bff;
+        background: #1e2761;
         color: white;
         align-self: flex-end; /* Aligns user messages to the right */
         text-align: left;
@@ -177,10 +181,10 @@
       .chatbot-button {
         margin-left: 10px;
         padding: 10px 15px;
-        background: #007bff;
+        background: #1e2761;
         color: white;
         border: none;
-        border-radius: 20px;
+        border-radius: 50px;
         cursor: pointer;
         transition: background 0.3s ease;
       }
@@ -202,7 +206,7 @@
         right: 20px;
         width: 50px;
         height: 50px;
-        background: #007bff;
+        background: #1e2761;
         color: white;
         border-radius: 50%;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -213,10 +217,27 @@
         font-size: 1.5em;
         z-index: 1000;
         display: none;
+        caret-color: transparent;
+        animation: bounce 2s infinite;
+      }
+
+      /* Bouncing Animation */
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
       }
 
       .chatbot-toggle.visible {
         display: flex;
+      }
+      .chatbot-message.bot.typing {
+        font-style: italic;
+        color: #888;
       }
     </style>
   </head>
@@ -273,7 +294,7 @@
 
     <!-- Footer -->
     <footer>
-      <div>Contact Us: 1-800-INSURE | support@insurance.com</div>
+      <div>Contact Canada: +1709191905 | salith.rahman107@gmail.com</div>
     </footer>
 
     <!-- Chatbot Container -->
